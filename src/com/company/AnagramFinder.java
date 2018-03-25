@@ -60,54 +60,76 @@ public class AnagramFinder {
     	
     }
     
+    private static void printDiscovery(List<String> wordList, String inputWord, long time) {
+    	if(wordList.isEmpty()) {
+    		System.out.println("No Anagram found for "+inputWord+" in "+ time + " ms");
+    	}
+    	else {
+    		System.out.println("Found "+ wordList.size()+ " anagrams in "+ time+ " ms");
+    		for(int i=0;i<wordList.size();i++) {
+    			
+    			if(i==wordList.size()-1) {
+    				System.out.print(wordList.get(i));
+    				System.out.println();
+    			}
+    			else {
+    				System.out.print(wordList.get(i)+ ", ");
+    			}
+    			
+    		}
+    	}
+    }
+    
     private static void FindAnagramUsingSort(String inputWord, List<String> list) {
-    	System.out.println("============");
+    	
         System.out.println("Using Sort");
         long startTime= System.currentTimeMillis();
+        List<String> anagramList= new ArrayList<String>();
         for(int i=0; i<list.size();i++){
             String word= list.get(i);
             if(isAnagramUsingSort(word,inputWord)){
-                System.out.println("Found anagram"+" "+ word);
+               anagramList.add(word);
 
             }
         }
         long stopTime= System.currentTimeMillis();
 
         long endTime= stopTime-startTime;
-        System.out.println("Time to find all anagrams is "+ endTime+"" +"milli seconds");
+        printDiscovery(anagramList,inputWord,endTime);
         
     }
     private static void FindAnagramUsingSum(String inputWord, List<String> list) {
-    	System.out.println("============");
+    
         System.out.println("Using Sum");
         long startTime= System.currentTimeMillis();
+        List<String> anagramList= new ArrayList<String>();
         for(int i=0; i<list.size();i++){
             String word= list.get(i);
                 if(isAnagramUsingSum(word,inputWord)){
-                    System.out.println("Found anagram"+" "+ word);
+                    anagramList.add(word);
 
                 }
             }
         
         long stopTime= System.currentTimeMillis();
         long endTime= stopTime-startTime;
-        System.out.println("Time to find all anagrams is "+ endTime+"" +"milli seconds");
+        printDiscovery(anagramList,inputWord,endTime);
         
 
     }
 
     private static void FindAnagramUsingCharacterCount(String inputWord, List<String> list) {
-    	System.out.println("============");
+ 
         System.out.println("Using character count");
         long startTime= System.currentTimeMillis();
-        
+        List<String> anagramList= new ArrayList<String>();
         for(int i=0; i<list.size();i++){
            
         	String word= list.get(i);
            
             if(isAnagramUsingCharacterCount(word,inputWord)){
                 
-            	System.out.println("Found anagram"+" "+ word);
+            	anagramList.add(word);
 
             }
         }
@@ -115,16 +137,16 @@ public class AnagramFinder {
 
         long endTime= stopTime-startTime;
         
-        System.out.println("Time to find all anagrams is "+ endTime+"" +"milli seconds");
+        printDiscovery(anagramList,inputWord,endTime);
         
     }
 
     static boolean isAnagramUsingSort(String s1, String s2)
     {
-        //Initially setting status as true
+        
 
         if(s1.equals(s2))
-        	return true;
+        	return false;
         //checking the length
         if(s1.length() != s2.length())
         	return false;
