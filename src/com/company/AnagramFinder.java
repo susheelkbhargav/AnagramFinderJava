@@ -2,18 +2,21 @@ package com.company;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class AnagramFinder {
     
     public static void main(String[] args) throws FileNotFoundException,IOException {
     	welcomeMessage();
-    	ArrayList <String> wordList= new ArrayList<String>();
+    	List <String> wordList= new ArrayList<String>();
     	wordList=loadFile(args[0]);
-    	
-    	
+    	takeInput(wordList);
         
-        while (true) {
+    }
+    
+    private static void takeInput(List<String>wordList) {
+    	while (true) {
         	System.out.println();
         	System.out.println();
             System.out.print("AnagramFinder> ");
@@ -49,6 +52,7 @@ public class AnagramFinder {
         
        return wordList;
     }
+    
     private static void welcomeMessage() {
     	System.out.println("Welcome To Anagram Finder");
     	System.out.println();
@@ -56,7 +60,7 @@ public class AnagramFinder {
     	
     }
     
-    private static void FindAnagramUsingSort(String inputWord, ArrayList<String> list) {
+    private static void FindAnagramUsingSort(String inputWord, List<String> list) {
     	System.out.println("============");
         System.out.println("Using Sort");
         long startTime= System.currentTimeMillis();
@@ -73,7 +77,7 @@ public class AnagramFinder {
         System.out.println("Time to find all anagrams is "+ endTime+"" +"milli seconds");
         
     }
-    private static void FindAnagramUsingSum(String inputWord, ArrayList<String> list) {
+    private static void FindAnagramUsingSum(String inputWord, List<String> list) {
     	System.out.println("============");
         System.out.println("Using Sum");
         long startTime= System.currentTimeMillis();
@@ -92,7 +96,7 @@ public class AnagramFinder {
 
     }
 
-    private static void FindAnagramUsingCharacterCount(String inputWord, ArrayList<String> list) {
+    private static void FindAnagramUsingCharacterCount(String inputWord, List<String> list) {
     	System.out.println("============");
         System.out.println("Using character count");
         long startTime= System.currentTimeMillis();
@@ -119,12 +123,12 @@ public class AnagramFinder {
     {
         //Initially setting status as true
 
-        boolean status = true;
+        if(s1.equals(s2))
+        	return true;
         //checking the length
         if(s1.length() != s2.length())
-        {
-            status = false;
-        }
+        	return false;
+       
         else
         {
             //Changing the case of characters of both cs1 and cs2 and converting them to char array
@@ -141,14 +145,16 @@ public class AnagramFinder {
 
             //Checking whether arrayS1 and arrayS2 are equal
 
-            status = Arrays.equals(arrayS1, arrayS2);
+            return Arrays.equals(arrayS1, arrayS2);
         }
 
         //Output
-        return status;
+
     }
 
     static boolean isAnagramUsingCharacterCount(String s1, String s2){
+    	if(s1.equals(s2))
+    		return false;
         if(s1.length()!=s2.length()){
             return false;
         }
@@ -163,7 +169,8 @@ public class AnagramFinder {
         }
         for(int i=0;i<modifiedS2.length();i++){
             int c= (int)modifiedS2.charAt(i);
-            if(letters[c]!=1){
+            letters[c]--;
+            if(letters[c]<0){
                 return false;
             }
         }
@@ -171,20 +178,27 @@ public class AnagramFinder {
     }
 
     static boolean isAnagramUsingSum(String s1, String s2) {
-        String modifiedS1 = s1.replaceAll("\\s", "").toLowerCase();
-        String modifiedS2 = s2.replaceAll("\\s", "").toLowerCase();
-        long sum1 = 0;
-        long sum2 = 0;
+    	if(s1.equals(s2))
+    		return false;
+    	else if(s1.length()!=s2.length())
+    		return false;
+    	else {
+    		 String modifiedS1 = s1.replaceAll("\\s", "").toLowerCase();
+    	        String modifiedS2 = s2.replaceAll("\\s", "").toLowerCase();
+    	        long sum1 = 0;
+    	        long sum2 = 0;
 
-        for (int i = 0; i < modifiedS1.length(); i++) {
-            int c = (int) modifiedS1.charAt(i);
-            sum1 += c;
-        }
+    	        for (int i = 0; i < modifiedS1.length(); i++) {
+    	            int c = (int) modifiedS1.charAt(i);
+    	            sum1 += c;
+    	        }
 
-        for (int i = 0; i < modifiedS2.length(); i++) {
-            int c = (int) modifiedS2.charAt(i);
-            sum2 += c;
-        }
-        return sum1 == sum2;
+    	        for (int i = 0; i < modifiedS2.length(); i++) {
+    	            int c = (int) modifiedS2.charAt(i);
+    	            sum2 += c;
+    	        }
+    	        return sum1 == sum2;
+    	}
+       
     }
 }
