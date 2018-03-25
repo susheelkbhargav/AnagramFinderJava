@@ -28,7 +28,6 @@ public class AnagramFinder {
              }
         	 else {
         		 FindAnagramUsingSort(inputWord,wordList);
-                 FindAnagramUsingSum(inputWord,wordList);
                  FindAnagramUsingCharacterCount(inputWord,wordList);
 
         	 } 
@@ -98,25 +97,7 @@ public class AnagramFinder {
         printDiscovery(anagramList,inputWord,endTime);
         
     }
-    private static void FindAnagramUsingSum(String inputWord, List<String> list) {
-    
-        System.out.println("Using Sum");
-        long startTime= System.currentTimeMillis();
-        List<String> anagramList= new ArrayList<String>();
-        for(int i=0; i<list.size();i++){
-            String word= list.get(i);
-                if(isAnagramUsingSum(word,inputWord)){
-                    anagramList.add(word);
-
-                }
-            }
-        
-        long stopTime= System.currentTimeMillis();
-        long endTime= stopTime-startTime;
-        printDiscovery(anagramList,inputWord,endTime);
-        
-
-    }
+   
 
     private static void FindAnagramUsingCharacterCount(String inputWord, List<String> list) {
  
@@ -141,7 +122,7 @@ public class AnagramFinder {
         
     }
 
-    static boolean isAnagramUsingSort(String s1, String s2)
+   private static boolean isAnagramUsingSort(String s1, String s2)
     {
         
 
@@ -174,7 +155,7 @@ public class AnagramFinder {
 
     }
 
-    static boolean isAnagramUsingCharacterCount(String s1, String s2){
+    private static boolean isAnagramUsingCharacterCount(String s1, String s2){
     	if(s1.equals(s2))
     		return false;
         if(s1.length()!=s2.length()){
@@ -199,28 +180,5 @@ public class AnagramFinder {
         return true;
     }
 
-    static boolean isAnagramUsingSum(String s1, String s2) {
-    	if(s1.equals(s2))
-    		return false;
-    	else if(s1.length()!=s2.length())
-    		return false;
-    	else {
-    		 String modifiedS1 = s1.replaceAll("\\s", "").toLowerCase();
-    	        String modifiedS2 = s2.replaceAll("\\s", "").toLowerCase();
-    	        long sum1 = 0;
-    	        long sum2 = 0;
-
-    	        for (int i = 0; i < modifiedS1.length(); i++) {
-    	            int c = (int) modifiedS1.charAt(i);
-    	            sum1 += c;
-    	        }
-
-    	        for (int i = 0; i < modifiedS2.length(); i++) {
-    	            int c = (int) modifiedS2.charAt(i);
-    	            sum2 += c;
-    	        }
-    	        return sum1 == sum2;
-    	}
-       
-    }
+   
 }
